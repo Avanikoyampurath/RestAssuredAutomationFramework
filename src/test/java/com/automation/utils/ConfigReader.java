@@ -21,4 +21,8 @@ public class ConfigReader {
         return prop.getProperty(key);
     }
 
+    public static void setConfigValue(String key, String value) {
+        prop.setProperty(key, value);
+    }
+
 }

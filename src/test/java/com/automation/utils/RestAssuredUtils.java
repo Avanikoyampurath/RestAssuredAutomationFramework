@@ -1,6 +1,7 @@
 package com.automation.utils;
 
 import io.restassured.RestAssured;
+import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -31,6 +32,13 @@ public class RestAssuredUtils {
         return response;
     }
 
+    public static Response put() {
+        requestSpecification.log().all(); // Just for logging purpose
+        response = requestSpecification.put(endPoint);
+        response.then().log().all(); // Just for logging purpose
+        return response;
+    }
+
     public static void setHeader(String key, String value) {
         requestSpecification = requestSpecification.header(key, value);
     }
@@ -52,6 +60,10 @@ public class RestAssuredUtils {
             throw new RuntimeException(e);
         }
         return content;
+    }
+
+    public static Response getResponse(){
+        return response;
     }
 
 }

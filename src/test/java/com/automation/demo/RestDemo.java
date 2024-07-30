@@ -13,11 +13,12 @@ public class RestDemo {
 //                .then().log().all().assertThat().statusCode(200);
 
         String body = getDataFromFile("src/test/resources/json/create_booking.json");
-        RestAssured.given().baseUri("https://restful-booker.herokuapp.com")
+
+        String id = RestAssured.given().baseUri("https://restful-booker.herokuapp.com")
                 .body(body)
                 .contentType("application/json")
-                .log().all().when().post("/booking")
-                .then().log().all().assertThat().statusCode(200);
+                .log().all().when().post("/booking").jsonPath().getString("bookingid");
+        System.out.println(id);
     }
 
     public static String getDataFromFile(String filePath) throws FileNotFoundException {
