@@ -12,7 +12,7 @@ public class RequestSteps {
     @Given("user wants to call {string} end point")
     public void user_wants_to_call_end_point(String endPoint) {
 
-        if (endPoint.contains("@")) {
+        if (endPoint.contains("@id")) {
             String bookingId = ConfigReader.getConfigValue("booking.id");
             endPoint = endPoint.replace("@id", bookingId);
         }
@@ -22,7 +22,7 @@ public class RequestSteps {
 
     @Given("set header {string} to {string}")
     public void set_header_to(String key, String value) {
-        if (value.contains("@")) {
+        if (value.contains("@token")) {
             value = value.replace("@token", ConfigReader.getConfigValue("api.token"));
         }
         RestAssuredUtils.setHeader(key, value);

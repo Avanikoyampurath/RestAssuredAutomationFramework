@@ -15,18 +15,18 @@ public class ResponseSteps {
 
     @And("stores created booking id into {string}")
     public void storesCreatedBookingIdInto(String key) {
-        ConfigReader.setConfigValue(key, RestAssuredUtils.getResponse().jsonPath().getString("bookingid"));
+        ConfigReader.setConfigValue(key, RestAssuredUtils.getResponseFieldValue("bookingid"));
     }
 
     @And("verify booking id is not empty")
     public void verifyBookingIdIsNotEmpty() {
-        String bookingId = RestAssuredUtils.getResponse().jsonPath().getString("bookingid");
+        String bookingId = RestAssuredUtils.getResponseFieldValue("bookingid");
         Assert.assertTrue(!bookingId.isEmpty());
     }
 
     @And("store token value to {string}")
     public void storeTokenValueTo(String key) {
-        String token = RestAssuredUtils.getResponse().jsonPath().getString("token");
+        String token = RestAssuredUtils.getResponseFieldValue("token");
         ConfigReader.setConfigValue(key, token);
     }
 }
