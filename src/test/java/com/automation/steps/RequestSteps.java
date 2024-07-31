@@ -1,11 +1,16 @@
 package com.automation.steps;
 
+import com.automation.pojo.CreateBookingPojo;
 import com.automation.utils.ConfigReader;
 import com.automation.utils.RestAssuredUtils;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.cucumber.java.en.And;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
+
+import java.util.Random;
 
 public class RequestSteps {
 
@@ -47,5 +52,18 @@ public class RequestSteps {
     @And("user performs put call")
     public void userPerformsPutCall() {
         RestAssuredUtils.put();
+    }
+
+    @And("set request body from the file {string} with random price")
+    public void setRequestBodyFromTheFileWithRandomPrice(String fileName) throws JsonProcessingException {
+        String jsonFolderPath = ConfigReader.getConfigValue("json.folder.path");
+        String jsonBody = RestAssuredUtils.getDataFromFile(jsonFolderPath + fileName);
+        ObjectMapper om = new ObjectMapper();
+        CreateBookingPojo createBookingPojo = om.readValue(jsonBody, CreateBookingPojo.class);
+
+        // Generate random price
+        int price = new Random().nextInt(1000);
+        createBookingPojo.setTotalprice(price);
+        RestAssuredUtils.setBodyUsingPojo(createBookingPojo);
     }
 }

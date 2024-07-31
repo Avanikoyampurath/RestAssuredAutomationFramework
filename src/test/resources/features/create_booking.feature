@@ -17,6 +17,6 @@ Feature: Validate create booking end point
     When user wants to call "/booking/@id" end point
     And set header "Content-Type" to "application/json"
     And set header "Cookie" to "token=@token"
-    And set request body from the file "update_booking.json"
+    And set request body from the file "create_booking.json" with random price
     And user performs put call
     Then verify status code is 200

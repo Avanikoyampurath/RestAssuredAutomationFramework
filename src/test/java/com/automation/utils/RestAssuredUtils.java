@@ -48,6 +48,10 @@ public class RestAssuredUtils {
         requestSpecification = requestSpecification.body(getDataFromFile(jsonFolderPath + fileName));
     }
 
+    public static void setBodyUsingPojo(Object object) {
+        requestSpecification = requestSpecification.body(object);
+    }
+
     public static int getStatusCode() {
         return response.getStatusCode();
     }
