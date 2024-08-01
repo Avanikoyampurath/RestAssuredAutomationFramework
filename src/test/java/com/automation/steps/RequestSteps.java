@@ -1,6 +1,7 @@
 package com.automation.steps;
 
 import com.automation.pojo.CreateBookingPojo;
+import com.automation.pojo.CreateTokenPojo;
 import com.automation.utils.ConfigReader;
 import com.automation.utils.RestAssuredUtils;
 import com.fasterxml.jackson.core.JsonProcessingException;
@@ -65,5 +66,19 @@ public class RequestSteps {
         int price = new Random().nextInt(1000);
         createBookingPojo.setTotalprice(price);
         RestAssuredUtils.setBodyUsingPojo(createBookingPojo);
+    }
+
+    @And("set request body from the file {string} with username {string} and password {string}")
+    public void setRequestBodyFromTheFileWithUsernameAndPassword(String fileName, String username, String password) throws JsonProcessingException {
+        String jsonFolderPath = ConfigReader.getConfigValue("json.folder.path");
+        String content = RestAssuredUtils.getDataFromFile(jsonFolderPath + fileName);
+
+        ObjectMapper om = new ObjectMapper();
+        CreateTokenPojo createTokenPojo = om.readValue(content, CreateTokenPojo.class);
+
+        createTokenPojo.setUsername(username);
+        createTokenPojo.setPassword(password);
+
+        RestAssuredUtils.setBodyUsingPojo(createTokenPojo);
     }
 }

@@ -8,6 +8,13 @@ public class Hooks {
     @Before
     public void setUp() {
         ConfigReader.initConfig();
-        RestAssured.baseURI = ConfigReader.getConfigValue("base.uri");
+
+        if (ConfigReader.getConfigValue("application.name").equals("restful-api")) {
+            RestAssured.baseURI = ConfigReader.getConfigValue("restful.api.base.uri");
+        } else {
+            RestAssured.baseURI = ConfigReader.getConfigValue("base.uri");
+        }
+
+
     }
 }

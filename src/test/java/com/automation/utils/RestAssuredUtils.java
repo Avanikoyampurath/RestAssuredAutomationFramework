@@ -1,7 +1,6 @@
 package com.automation.utils;
 
 import io.restassured.RestAssured;
-import io.restassured.path.json.JsonPath;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
@@ -68,5 +67,9 @@ public class RestAssuredUtils {
 
     public static String getResponseFieldValue(String jsonPath) {
         return response.jsonPath().getString(jsonPath);
+    }
+
+    public static Response getResponse(){
+        return response;
     }
 }
